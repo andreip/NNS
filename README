@@ -1,0 +1,18 @@
+# Petre Andrei-Nicuale
+
+	Pentru a cauta mai eficient in planul xOy, am construit un K-D tree. Mai
+exact, am creat arborele considerat ca nivelele pare sunt asociate axelor x,
+iar cele impare, axelor y. Apoi adaugarea se face ca la arbori binari de cautare
+, dar comparand, in functie de nivel, cu coordonata x, respectiv y.
+	Odata construit, parcurg arborele pentru fiecare coordonata si obtin un
+cel mai aproape, pe care il updatez pana ajung in frunza. Asta se face in
+complexitate logaritmica.
+	Apoi, la descarcarea stivei, se verifica daca cercul cu raza r = distanta
+intre "request" si "cel mai aproape" intersecteaza axa nodului curent, iar
+daca da, inseamna ca poate fi un nod mai aproape ca "cel mai aproape", altfel,
+trecem mai departe (cel mai aproape se updateaza continuu).
+
+
+	O posibila optimizare ar fi sa se formeze mereu arborele echilibrat. Asta
+s-ar putea face mai usor, alegand nodurile in ordine random, dar ar necesita,
+in momentul de fata, utilizare de memorie suplimentara.
