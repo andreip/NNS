@@ -20,22 +20,25 @@ void InitFiles(int argc, char *argv[]) {
 	freopen(argv[2], "w", stdout);
 }
 
-int main(int argc, char *argv[]) {
-	int i, N, M;
+void FormKD(KD *kd) {
+	int i, N;
 	double coordX, coordY;
-	KD kd, out;
-
-	InitFiles(argc, argv);
 
 	/* formare arbore pentru orase */
 	scanf("%d", &N);
 	scanf("%lf%lf", &coordX, &coordY);
-	kd = KDCreate(coordX, coordY);
+	*kd = KDCreate(coordX, coordY);
 
 	for(i=1; i<N; i++) {
 		scanf("%lf%lf", &coordX, &coordY);
-		KDInsert(kd, coordX, coordY);
+		KDInsert(*kd, coordX, coordY);
 	}
+}
+
+void RespondRequests(KD kd) {
+	int i, M;
+	double coordX, coordY;
+	KD out;
 
 	/* raspundere request-uri */
 	scanf("%d", &M);
@@ -44,6 +47,15 @@ int main(int argc, char *argv[]) {
 		out = KDSearchNN(kd, coordX, coordY, NULL, 0);
 		printf("%lf %lf\n", out->x, out->y);
 	}
+}
+
+int main(int argc, char *argv[]) {
+	KD kd;
+
+	InitFiles(argc, argv);
+	FormKD(&kd);
+	RespondRequests(kd);
 	KDDestroy(kd);
+
 	return 0;
 }
